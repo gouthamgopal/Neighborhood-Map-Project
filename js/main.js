@@ -150,3 +150,12 @@ function generateInfoWindow(marker, infowindow) {
       infowindow.setMarker(null);
     });
 }
+
+var viewModel = function() {
+  this.mapReset = function () {
+    map.setZoom(5);
+    map.setCenter(new google.maps.LatLng(21.767, 78.8718));
+  };
+};
+
+ko.applyBindings(new viewModel());
