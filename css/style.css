@@ -5,3 +5,9 @@
   position: absolute;
   margin: 0;
 }
+#reset-zoom {
+  position: absolute;
+  z-index: 2;
+  top: 550px;
+  left: 100px;
+}

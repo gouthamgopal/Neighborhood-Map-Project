@@ -43,7 +43,7 @@ var model_data = ko.observableArray([
     location: "Goa, India"
   },
   {
-    name: "Manali",
+    name: "Manali, Himachal Pradesh",
     lat:32.27,
     lng: 77.17,
     location: "Kullu, Himachal Pradesh, India"
@@ -63,6 +63,7 @@ var model_data = ko.observableArray([
 ]);
 
 var markers = [];
+var marker;
 
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
@@ -74,35 +75,78 @@ function initMap() {
 
   for(var i = 0; i < model_data().length; i++) {
 
-    var marker = new google.maps.Marker({
+      marker = new google.maps.Marker({
       position: new google.maps.LatLng(model_data()[i].lat, model_data()[i].lng),
       map: map,
       title: model_data()[i].name,
       animation: google.maps.Animation.DROP,
       id: i,
-      location: model_data()[i].location
+      location: model_data()[i].location,
+      icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
     });
 
     markers.push(marker);
 
-    marker.addListener('click', function() {
-      generateInfoWindow(this, l_infowindow);
+    markers.forEach(function(marker) {
+      getWiki(marker);
     });
 
+    marker.addListener('mouseover', function() {
+      this.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png');
+    });
+
+    marker.addListener('mouseout', function() {
+      this.setIcon('http://maps.google.com/mapfiles/ms/icons/red-dot.png');
+    });
+
+    marker.addListener('click', function() {
+      animateMarker(this);
+      generateInfoWindow(this, l_infowindow);
+    });
   }
 }
 
+function animateMarker(marker) {
+  marker.setAnimation(google.maps.Animation.BOUNCE);
+  //Set timeout for Animation
+  setTimeout(function() {
+    marker.setAnimation(null);
+  }, 2000);
+}
+
+function getWiki(marker) {
+  var wikiURL = "https://en.wikipedia.org/w/api.php?action=opensearch&search=" + marker.title + "&format=json&callback=wikiCallback";
+
+  var wikiRequestTimeout = setTimeout(function() {
+    //Set timeout for 8 sec for wiki resources to load.
+    alert("Failed to get Wikipedia resources");
+  }, 8000);
+
+  var x = $.ajax({
+    url: wikiURL,
+    dataType: "jsonp",
+    success: function(response) {
+      var wikiURL = response[3][0];
+      var Description = response[2][0];
+      marker.url = wikiURL;
+      marker.Description = Description;
+      clearTimeout(wikiRequestTimeout);
+    }
+  });
+}
+
 function generateInfoWindow(marker, infowindow) {
-  console.log(marker.location);
-  if(infowindow.marker != marker) {
+
     infowindow.marker = marker;
     var content = '<div><h1>' + marker.title + '</h1><hr>' +
-                  '<br><p>' + marker.location + '</p></div>';
+                  '<br><p>' + marker.location + '</p></div>' +
+                  '<a href="' + marker.url + '">' + marker.url +
+                  '</a><p>' + marker.Description + '</p>';
     infowindow.setContent(content);
     infowindow.open(map,marker);
-
+    map.setZoom(7);
+    map.setCenter(marker.position);
     infowindow.addListener('closeclick',function(){
       infowindow.setMarker(null);
     });
-  }
 }
