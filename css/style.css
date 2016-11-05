@@ -1,13 +1,31 @@
+* {
+  box-sizing: border-box;
+}
+html,
+body,
 #map {
   width: 100%;
   height: 100%;
   z-index: 1;
   position: absolute;
-  margin: 0;
 }
 #reset-zoom {
   position: absolute;
   z-index: 2;
   top: 550px;
-  left: 100px;
+  right: 100px;
+}
+#list-view {
+  width: 20%;
+  height: 100%;
+  z-index: 3;
+  position: absolute;
+  background-color: #536077;
+}
+#list-hide {
+  z-index: 4;
+  opacity: 0.9;
+}
+#search {
+  width: 85%;
 }
