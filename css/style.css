@@ -21,15 +21,23 @@ body,
   height: 100%;
   z-index: 3;
   position: absolute;
-  background-color: #536077;
+  background-color: #666699;
 }
 #list-hide {
+  height: 30px;
   z-index: 4;
-  opacity: 0.9;
+  display: flex;
+  flex-wrap: wrap;
   position: absolute;
-  background-color: #536077;
+  background-color: #666699;
 }
 #search {
-  width: 85%;
-  margin-top: 50px;
+  width: 100%;
+  margin-top: 40px;
+  margin-bottom: 15px;
+}
+#list {
+  background-color: #e6e6e6;
+  height: 550px;
+  overflow: scroll;
 }

@@ -4,61 +4,70 @@ var model_data = ko.observableArray([
     name: "Jim Corbett National Park",
     lat: 29.3255,
     lng: 78.567,
-    location: "Nainital, Uttarakhand, India"
+    location: "Nainital, Uttarakhand, India",
+    id: 1
   },
   {
     name: "Port Blair",
     lat: 11.4006,
     lng: 92.4416,
-    location: "South Andaman, Andaman and Nicobar Islands, India"
+    location: "South Andaman, Andaman and Nicobar Islands, India",
+    id: 2
   },
   {
     name: "Kodaikanal",
     lat: 10.28,
     lng: 77.48,
-    location: "Dindigul, TamilNadu, India"
+    location: "Dindigul, TamilNadu, India",
+    id: 3
   },
   {
     name: "Darjeeling",
     lat: 27.080,
     lng: 88.26,
-    location: "Darjeeling, West Bengal, India"
+    location: "Darjeeling, West Bengal, India",
+    id: 4
   },
   {
     name: "Gangtok",
     lat: 27.33,
     lng: 88.62,
-    location: "East Sikkim, Sikkim, India"
+    location: "East Sikkim, Sikkim, India",
+    id: 5
   },
   {
     name: "Agatti",
     lat: 10.50,
     lng: 73,
-    location: "Lakshadweep, India"
+    location: "Lakshadweep, India",
+    id: 6
   },
   {
     name: "Goa",
     lat: 15.498605,
     lng: 73.829262,
-    location: "Goa, India"
+    location: "Goa, India",
+    id: 7
   },
   {
     name: "Manali, Himachal Pradesh",
     lat:32.27,
     lng: 77.17,
-    location: "Kullu, Himachal Pradesh, India"
+    location: "Kullu, Himachal Pradesh, India",
+    id: 8
   },
   {
     name: "Hampi",
     lat: 15.335,
     lng: 76.462,
-    location: "Bellary, Karnataka, India"
+    location: "Bellary, Karnataka, India",id: 9
   },
   {
     name: "Coorg",
     lat: 12.4208,
     lng: 75.7397,
-    location: "Kodagu, Karnataka, India"
+    location: "Kodagu, Karnataka, India",
+    id: 10
   }
 ]);
 
@@ -68,7 +77,9 @@ var marker;
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: 21.767, lng: 78.8718},
-    zoom: 5
+    zoom: 5,
+    mapTypeControl: false,
+    disableDefaultUI: true
   });
 
   var l_infowindow = new google.maps.InfoWindow();
@@ -166,6 +177,10 @@ var viewModel = function() {
     else if(navBar == false) {
       showNav();
     }
+  };
+
+  this.markerShow = function () {
+
   };
 };
 

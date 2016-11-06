@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html>
 <head>
   <title>Weekend Destinations in India</title>
@@ -12,8 +11,15 @@
     <img data-bind="click: listOut" src="images/menu-icon.jpg" alt="hamburger icon" id="icon" width="30px" height="30px">
   </div>
   <div id="list-view">
-    <div>
-      <input id="search" type="search" placeholder="Enter Search Term">
+    <input id="search" type="search" placeholder="Enter Search Term">
+    <div id="list">
+      <h2>Weekend Destinations:</h2>
+      <ul data-bind="foreach: model_data">
+        <li>
+          <b data-bind="text: name, click: markerShow"></b>
+          <p data-bind="text: location"></p>
+        </li>
+      </ul>
     </div>
   </div>
   <div id="reset-zoom">
