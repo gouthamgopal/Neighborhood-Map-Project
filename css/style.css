@@ -8,6 +8,7 @@ body,
   height: 100%;
   z-index: 1;
   position: absolute;
+  margin: 0px;
 }
 #reset-zoom {
   position: absolute;
@@ -25,7 +26,10 @@ body,
 #list-hide {
   z-index: 4;
   opacity: 0.9;
+  position: absolute;
+  background-color: #536077;
 }
 #search {
   width: 85%;
+  margin-top: 50px;
 }

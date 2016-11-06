@@ -151,11 +151,32 @@ function generateInfoWindow(marker, infowindow) {
     });
 }
 
+var navBar = true;
+
 var viewModel = function() {
   this.mapReset = function () {
     map.setZoom(5);
     map.setCenter(new google.maps.LatLng(21.767, 78.8718));
   };
+
+  this.listOut = function() {
+    if(navBar == true) {
+      hideNav();
+    }
+    else if(navBar == false) {
+      showNav();
+    }
+  };
 };
+
+function hideNav() {
+  $('#list-view').hide();
+  navBar = false;
+}
+
+function showNav() {
+  $('#list-view').show();
+  navBar = true;
+}
 
 ko.applyBindings(new viewModel());
