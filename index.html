@@ -11,12 +11,12 @@
     <img data-bind="click: listOut" src="images/menu-icon.jpg" alt="hamburger icon" id="icon" width="30px" height="30px">
   </div>
   <div id="list-view">
-    <input id="search" type="search" placeholder="Enter Search Term">
+    <h2 id="heading">Weekend Destinations:</h2>
+    <input id="search" type="search" placeholder="Enter Search Term" data-bind="searchText">
     <div id="list">
-      <h2>Weekend Destinations:</h2>
-      <ul data-bind="foreach: model_data">
-        <li>
-          <b data-bind="text: name, click: markerShow"></b>
+      <ul data-bind="foreach: model_data, click: showMarker" id="list-scroll">
+        <li data-bind="attr:{id: model_data.id}">
+          <b data-bind="text: name"></b>
           <p data-bind="text: location"></p>
         </li>
       </ul>

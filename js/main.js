@@ -5,69 +5,80 @@ var model_data = ko.observableArray([
     lat: 29.3255,
     lng: 78.567,
     location: "Nainital, Uttarakhand, India",
-    id: 1
+    id: 1,
+    visible: ko.observable(false)
   },
   {
     name: "Port Blair",
     lat: 11.4006,
     lng: 92.4416,
     location: "South Andaman, Andaman and Nicobar Islands, India",
-    id: 2
+    id: 2,
+    visible: ko.observable(false)
   },
   {
     name: "Kodaikanal",
     lat: 10.28,
     lng: 77.48,
     location: "Dindigul, TamilNadu, India",
-    id: 3
+    id: 3,
+    visible: ko.observable(false)
   },
   {
     name: "Darjeeling",
     lat: 27.080,
     lng: 88.26,
     location: "Darjeeling, West Bengal, India",
-    id: 4
+    id: 4,
+    visible: ko.observable(false)
   },
   {
     name: "Gangtok",
     lat: 27.33,
     lng: 88.62,
     location: "East Sikkim, Sikkim, India",
-    id: 5
+    id: 5,
+    visible: ko.observable(false)
   },
   {
     name: "Agatti",
     lat: 10.50,
     lng: 73,
     location: "Lakshadweep, India",
-    id: 6
+    id: 6,
+    visible: ko.observable(false)
   },
   {
     name: "Goa",
     lat: 15.498605,
     lng: 73.829262,
     location: "Goa, India",
-    id: 7
+    id: 7,
+    visible: ko.observable(false)
   },
   {
     name: "Manali, Himachal Pradesh",
     lat:32.27,
     lng: 77.17,
     location: "Kullu, Himachal Pradesh, India",
-    id: 8
+    id: 8,
+    visible: ko.observable(false)
   },
   {
     name: "Hampi",
     lat: 15.335,
     lng: 76.462,
-    location: "Bellary, Karnataka, India",id: 9
+    location: "Bellary, Karnataka, India",
+    id: 9,
+    visible: ko.observable(false)
   },
   {
     name: "Coorg",
     lat: 12.4208,
     lng: 75.7397,
     location: "Kodagu, Karnataka, India",
-    id: 10
+    id: 10,
+    visible: ko.observable(false)
   }
 ]);
 
@@ -179,9 +190,9 @@ var viewModel = function() {
     }
   };
 
-  this.markerShow = function () {
-
-  };
+  this.showMarker = function() {
+    console.log();
+  }
 };
 
 function hideNav() {
