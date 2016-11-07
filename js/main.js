@@ -131,7 +131,7 @@ function animateMarker(marker) {
 }
 
 function getWiki(marker) {
-  var wikiURL = "https://en.wikfipedia.org/w/api.php?action=opensearch&search=" + marker.title + "&format=json&callback=wikiCallback";
+  var wikiURL = "https://en.wikipedia.org/w/api.php?action=opensearch&search=" + marker.title + "&format=json&callback=wikiCallback";
 
   var wikiRequestTimeout = setTimeout(function() {
     var alerted = localStorage.getItem('alerted') || '';
@@ -140,7 +140,7 @@ function getWiki(marker) {
       alert("Failed to get Wikipedia resources");
       localStorage.setItem('alerted','no');
       }
-  }, 8000);
+  }, 4000);
 
   $.ajax({
     url: wikiURL,
@@ -215,7 +215,7 @@ var viewModel = function() {
     var i = model_data.id - 1;
     google.maps.event.trigger(markers[i], "click");
   }
-  
+
   localStorage.removeItem('alerted');
 };
 

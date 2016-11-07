@@ -47,3 +47,8 @@ li:hover {
   background-color: #0033cc;
   color: white;
 }
+@media only screen and (max-width: 800px) and (min-width: 580px){
+  #list-view {
+    width:210px;
+  };
+}
