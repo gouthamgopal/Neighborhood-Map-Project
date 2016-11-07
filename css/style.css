@@ -47,8 +47,30 @@ li:hover {
   background-color: #0033cc;
   color: white;
 }
+
 @media only screen and (max-width: 800px) and (min-width: 580px){
   #list-view {
-    width:210px;
-  };
+    width:250px;
+  }
+  #list {
+    height: 700px;
+  }
+  #list-view {
+    display: none;
+  }
+}
+@media only screen and (max-width: 550px) and (min-width: 360px){
+  #list-view {
+    width:200px;
+  }
+  #list {
+    height: 360px;
+  }
+  #reset-zoom {
+    left: 250px;
+    right: 10px;
+  }
+  #list-view {
+    display: none;
+  }
 }

@@ -77,12 +77,30 @@ var markers = [];
 var infoWindows = [];
 
 function initMap() {
-  map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: 21.767, lng: 78.8718},
-    zoom: 5,
-    mapTypeControl: false,
-    disableDefaultUI: true
-  });
+  if(window.innerWidth >= 850) {
+    map = new google.maps.Map(document.getElementById('map'), {
+      center: {lat: 21.767, lng: 78.8718},
+      zoom: 5,
+      mapTypeControl: false,
+      disableDefaultUI: true
+    });
+  }
+  if(window.innerWidth <= 800 && window.innerWidth > 600){
+    map = new google.maps.Map(document.getElementById('map'), {
+      center: {lat: 21.767, lng: 78.8718},
+      zoom: 5,
+      mapTypeControl: false,
+      disableDefaultUI: true
+    });
+  }
+  if(window.innerWidth <=500) {
+    map = new google.maps.Map(document.getElementById('map'), {
+      center: {lat: 21.767, lng: 78.8718},
+      zoom: 4,
+      mapTypeControl: false,
+      disableDefaultUI: true
+    });
+  }
 
 
   for(var i = 0; i < model_data().length; i++) {
@@ -230,3 +248,26 @@ function showNav() {
 }
 
 ko.applyBindings(new viewModel());
+
+//Hide Nav when screen width is < 850 or height < 595
+//Show Nav if screen width is >= 850 or height >= 595
+//Function runs when window is resized
+$(window).resize(function() {
+    //To Hide Nav
+    if (window.innerWidth < 800) {
+        //call noNav function
+        hideNav();
+    }
+    //To Show Nav
+    if (window.innerWidth >= 850) {
+
+        if (window.innerHeight > 595) {
+            // call yesNav function
+            showNav();
+        }
+    }
+    //To hide nav in mobile devices
+    if (window.innerWidth <= 550) {
+      hideNav();
+    }
+});
