@@ -84,7 +84,7 @@ var model_data = ko.observableArray([
 
 var marker;
 var markers = [];
-var infowindows = [];
+var infoWindows = [];
 
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
@@ -94,7 +94,6 @@ function initMap() {
     disableDefaultUI: true
   });
 
-  var l_infowindow = new google.maps.InfoWindow();
 
   for(var i = 0; i < model_data().length; i++) {
 
@@ -108,7 +107,9 @@ function initMap() {
       icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
     });
 
+    var l_infowindow = new google.maps.InfoWindow();
     markers.push(marker);
+    infoWindows.push(l_infowindow);
 
     markers.forEach(function(marker) {
       getWiki(marker);
@@ -159,7 +160,6 @@ function getWiki(marker) {
 }
 
 function generateInfoWindow(marker, infowindow) {
-
     infowindow.marker = marker;
     var content = '<div><h1>' + marker.title + '</h1><hr>' +
                   '<br><p>' + marker.location + '</p></div>' +
@@ -171,12 +171,21 @@ function generateInfoWindow(marker, infowindow) {
     map.setCenter(marker.position);
 }
 
+//close info windows
+closeInfoWindows = function() {
+
+    for (var i = 0; i < infoWindows.length; i++) {
+        infoWindows[i].close();
+    }
+}
+
 var navBar = true;
 
 var viewModel = function() {
   this.mapReset = function () {
     map.setZoom(5);
     map.setCenter(new google.maps.LatLng(21.767, 78.8718));
+    closeInfoWindows();
   };
 
   this.listOut = function() {
