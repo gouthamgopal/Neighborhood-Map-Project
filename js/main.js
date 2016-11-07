@@ -6,7 +6,6 @@ var model_data = ko.observableArray([
     lng: 78.567,
     location: "Nainital, Uttarakhand, India",
     id: 1,
-    visible: ko.observable(false)
   },
   {
     name: "Port Blair",
@@ -14,7 +13,6 @@ var model_data = ko.observableArray([
     lng: 92.4416,
     location: "South Andaman, Andaman and Nicobar Islands, India",
     id: 2,
-    visible: ko.observable(false)
   },
   {
     name: "Kodaikanal",
@@ -22,7 +20,6 @@ var model_data = ko.observableArray([
     lng: 77.48,
     location: "Dindigul, TamilNadu, India",
     id: 3,
-    visible: ko.observable(false)
   },
   {
     name: "Darjeeling",
@@ -30,7 +27,6 @@ var model_data = ko.observableArray([
     lng: 88.26,
     location: "Darjeeling, West Bengal, India",
     id: 4,
-    visible: ko.observable(false)
   },
   {
     name: "Gangtok",
@@ -38,7 +34,6 @@ var model_data = ko.observableArray([
     lng: 88.62,
     location: "East Sikkim, Sikkim, India",
     id: 5,
-    visible: ko.observable(false)
   },
   {
     name: "Agatti",
@@ -46,7 +41,6 @@ var model_data = ko.observableArray([
     lng: 73,
     location: "Lakshadweep, India",
     id: 6,
-    visible: ko.observable(false)
   },
   {
     name: "Goa",
@@ -54,7 +48,6 @@ var model_data = ko.observableArray([
     lng: 73.829262,
     location: "Goa, India",
     id: 7,
-    visible: ko.observable(false)
   },
   {
     name: "Manali, Himachal Pradesh",
@@ -62,7 +55,6 @@ var model_data = ko.observableArray([
     lng: 77.17,
     location: "Kullu, Himachal Pradesh, India",
     id: 8,
-    visible: ko.observable(false)
   },
   {
     name: "Hampi",
@@ -70,7 +62,6 @@ var model_data = ko.observableArray([
     lng: 76.462,
     location: "Bellary, Karnataka, India",
     id: 9,
-    visible: ko.observable(false)
   },
   {
     name: "Coorg",
@@ -78,7 +69,6 @@ var model_data = ko.observableArray([
     lng: 75.7397,
     location: "Kodagu, Karnataka, India",
     id: 10,
-    visible: ko.observable(false)
   }
 ]);
 
@@ -106,6 +96,8 @@ function initMap() {
       location: model_data()[i].location,
       icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
     });
+
+    model_data()[i].markerObject = marker;
 
     var l_infowindow = new google.maps.InfoWindow();
     markers.push(marker);
@@ -143,7 +135,8 @@ function getWiki(marker) {
 
   var wikiRequestTimeout = setTimeout(function() {
     //Set timeout for 8 sec for wiki resources to load.
-    alert("Failed to get Wikipedia resources");
+      alert("Failed to get Wikipedia resources");
+
   }, 8000);
 
   $.ajax({
@@ -182,6 +175,24 @@ closeInfoWindows = function() {
 var navBar = true;
 
 var viewModel = function() {
+
+  this.searchText = ko.observable("");
+
+  this.setMarker = ko.computed(function(){
+    var string = this.searchText().toLowerCase();
+    return ko.utils.arrayFilter(model_data(), function(places)  {
+    if(places.name.toLowerCase().indexOf(string) == 0) {
+      if(places.markerObject) {
+        places.markerObject.setVisible(true);
+      }
+      return true;
+      }
+      else {
+        places.markerObject.setVisible(false);
+      }
+    });
+  }, this);
+
   this.mapReset = function () {
     map.setZoom(5);
     map.setCenter(new google.maps.LatLng(21.767, 78.8718));

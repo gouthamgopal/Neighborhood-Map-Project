@@ -12,16 +12,18 @@
   </div>
   <div id="list-view">
     <h2 id="heading">Weekend Destinations:</h2>
-    <input id="search" type="search" placeholder="Enter Search Term" data-bind="searchText">
+    <input id="search" type="search" placeholder="Enter Search Term" data-bind="textInput: searchText, valueUpdate: 'afterkeydown'">
     <div id="list">
-      <ul data-bind="foreach: model_data" id="list-scroll">
+      <ul data-bind="template: {name: 'name', foreach: model_data}" id="list-scroll">
+      </ul>
+      <script type='text/html' id="name">
         <div data-bind="click: $root.showMarker">
           <li>
             <b data-bind="text: name"></b>
             <p data-bind="text: location"></p>
           </li>
         </div>
-      </ul>
+      </script>
     </div>
   </div>
   <div id="reset-zoom">
