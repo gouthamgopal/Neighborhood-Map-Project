@@ -14,7 +14,7 @@
     <h2 id="heading">Weekend Destinations:</h2>
     <input id="search" type="search" placeholder="Enter Search Term" data-bind="textInput: searchText, valueUpdate: 'afterkeydown'">
     <div id="list">
-      <ul data-bind="template: {name: 'name', foreach: model_data}" id="list-scroll">
+      <ul data-bind="template: {name: 'name', foreach: setMarker}" id="list-scroll">
       </ul>
       <script type='text/html' id="name">
         <div data-bind="click: $root.showMarker">
