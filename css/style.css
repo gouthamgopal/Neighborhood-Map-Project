@@ -12,9 +12,9 @@ body,
 }
 #reset-zoom {
   position: absolute;
-  z-index: 2;
-  top: 550px;
-  right: 100px;
+  z-index: 4;
+  top: 5px;
+  left: 50px;
 }
 #list-view {
   width: 20%;

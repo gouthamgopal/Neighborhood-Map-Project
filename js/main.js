@@ -82,8 +82,9 @@ var model_data = ko.observableArray([
   }
 ]);
 
-var markers = [];
 var marker;
+var markers = [];
+var infowindows = [];
 
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
@@ -144,7 +145,7 @@ function getWiki(marker) {
     alert("Failed to get Wikipedia resources");
   }, 8000);
 
-  var x = $.ajax({
+  $.ajax({
     url: wikiURL,
     dataType: "jsonp",
     success: function(response) {
@@ -168,9 +169,6 @@ function generateInfoWindow(marker, infowindow) {
     infowindow.open(map,marker);
     map.setZoom(7);
     map.setCenter(marker.position);
-    infowindow.addListener('closeclick',function(){
-      infowindow.setMarker(null);
-    });
 }
 
 var navBar = true;
@@ -190,8 +188,9 @@ var viewModel = function() {
     }
   };
 
-  this.showMarker = function() {
-    console.log();
+  this.showMarker = function(model_data) {
+    var i = model_data.id - 1;
+    google.maps.event.trigger(markers[i], "click");
   }
 };
 

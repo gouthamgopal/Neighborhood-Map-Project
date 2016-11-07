@@ -14,11 +14,13 @@
     <h2 id="heading">Weekend Destinations:</h2>
     <input id="search" type="search" placeholder="Enter Search Term" data-bind="searchText">
     <div id="list">
-      <ul data-bind="foreach: model_data, click: showMarker" id="list-scroll">
-        <li data-bind="attr:{id: model_data.id}">
-          <b data-bind="text: name"></b>
-          <p data-bind="text: location"></p>
-        </li>
+      <ul data-bind="foreach: model_data" id="list-scroll">
+        <div data-bind="click: $root.showMarker">
+          <li>
+            <b data-bind="text: name"></b>
+            <p data-bind="text: location"></p>
+          </li>
+        </div>
       </ul>
     </div>
   </div>
