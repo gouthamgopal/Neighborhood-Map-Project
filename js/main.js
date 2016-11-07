@@ -138,7 +138,7 @@ function initMap() {
       generateInfoWindow(this, l_infowindow);
     });
   }
-}
+};
 
 function animateMarker(marker) {
   marker.setAnimation(google.maps.Animation.BOUNCE);
@@ -247,7 +247,7 @@ function showNav() {
   navBar = true;
 }
 
-ko.applyBindings(new viewModel());
+//ko.applyBindings(new viewModel());
 
 //Hide Nav when screen width is < 850 or height < 595
 //Show Nav if screen width is >= 850 or height >= 595
@@ -266,8 +266,14 @@ $(window).resize(function() {
             showNav();
         }
     }
-    //To hide nav in mobile devices
     if (window.innerWidth <= 550) {
       hideNav();
     }
 });
+
+ko.applyBindings(new viewModel());
+
+function googleError(){
+  console.log('hi');
+  alert("Sorry, We are experiencing trouble loading the Google Maps");
+};
