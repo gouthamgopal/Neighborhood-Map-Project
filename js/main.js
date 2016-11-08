@@ -1,4 +1,5 @@
 var map;
+//Observable array to store the model of the framework.
 var model_data = ko.observableArray([
   {
     name: "Jim Corbett National Park",
@@ -73,7 +74,11 @@ var model_data = ko.observableArray([
 ]);
 
 var marker;
+
+//Array to store the markers that have been created for each place in the map
 var markers = [];
+
+//Array to store the infowindows which have been created for each markers.
 var infoWindows = [];
 
 function initMap() {
@@ -140,6 +145,7 @@ function initMap() {
   }
 };
 
+//Function to animate the marker once the marker is selected.
 function animateMarker(marker) {
   marker.setAnimation(google.maps.Animation.BOUNCE);
   //Set timeout for Animation
@@ -148,6 +154,9 @@ function animateMarker(marker) {
   }, 2000);
 }
 
+//Function that takes care of the 3rd party api for the project. This function
+//takes the name of the place as the input and gets the wikipedia page that is
+//assosciated with the page.
 function getWiki(marker) {
   var wikiURL = "https://en.wikipedia.org/w/api.php?action=opensearch&search=" + marker.title + "&format=json&callback=wikiCallback";
 
@@ -173,6 +182,7 @@ function getWiki(marker) {
   });
 }
 
+//Function to generate the infowindow for each marker.
 function generateInfoWindow(marker, infowindow) {
     infowindow.marker = marker;
     var content = '<div><h1>' + marker.title + '</h1><hr>' +
@@ -199,6 +209,9 @@ var viewModel = function() {
 
   this.searchText = ko.observable("");
 
+  //Function to use the searchText to filter out the markers displayed on the map.
+  //This function returns an array which is used to control the names displayed on
+  //the list.
   this.setMarker = ko.computed(function(){
     var string = this.searchText().toLowerCase();
     return ko.utils.arrayFilter(model_data(), function(places)  {
@@ -214,12 +227,15 @@ var viewModel = function() {
     });
   }, this);
 
+  //Function to reset the map to its default position when button is clicked.
   this.mapReset = function () {
     map.setZoom(5);
     map.setCenter(new google.maps.LatLng(21.767, 78.8718));
     closeInfoWindows();
   };
 
+  //Function to invoke the show/hideNav functions according to the value of
+  //navBar variable.
   this.listOut = function() {
     if(navBar == true) {
       hideNav();
@@ -229,6 +245,8 @@ var viewModel = function() {
     }
   };
 
+  //Function to show the marker on clicking the list item corresponding to
+  //that marker and in turn displaying infowindow of that corresponding place.
   this.showMarker = function(model_data) {
     var i = model_data.id - 1;
     google.maps.event.trigger(markers[i], "click");
@@ -237,11 +255,13 @@ var viewModel = function() {
   localStorage.removeItem('alerted');
 };
 
+//Function to hide the list Nav
 function hideNav() {
   $('#list-view').hide();
   navBar = false;
 }
 
+//Function to show the list Nav
 function showNav() {
   $('#list-view').show();
   navBar = true;
@@ -249,7 +269,7 @@ function showNav() {
 
 //ko.applyBindings(new viewModel());
 
-//Hide Nav when screen width is < 850 or height < 595
+//Hide Nav when screen width is < 800
 //Show Nav if screen width is >= 850 or height >= 595
 //Function runs when window is resized
 $(window).resize(function() {
@@ -273,6 +293,7 @@ $(window).resize(function() {
 
 ko.applyBindings(new viewModel());
 
+//Function to display google maps error
 function googleError(){
   console.log('hi');
   alert("Sorry, We are experiencing trouble loading the Google Maps");
