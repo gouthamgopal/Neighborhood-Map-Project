@@ -82,45 +82,36 @@ var markers = [];
 var infoWindows = [];
 
 function initMap() {
+  map = new google.maps.Map(document.getElementById('map'), {
+    center: {lat: 21.767, lng: 78.8718},
+    zoom: 5,
+    mapTypeControl: false,
+    disableDefaultUI: true
+  });
   if(window.innerWidth >= 850) {
-    map = new google.maps.Map(document.getElementById('map'), {
-      center: {lat: 21.767, lng: 78.8718},
-      zoom: 5,
-      mapTypeControl: false,
-      disableDefaultUI: true
-    });
+    map.setZoom(5);
   }
   if(window.innerWidth <= 800 && window.innerWidth > 600){
-    map = new google.maps.Map(document.getElementById('map'), {
-      center: {lat: 21.767, lng: 78.8718},
-      zoom: 5,
-      mapTypeControl: false,
-      disableDefaultUI: true
-    });
+    map.setZoom(5);
   }
   if(window.innerWidth <=500) {
-    map = new google.maps.Map(document.getElementById('map'), {
-      center: {lat: 21.767, lng: 78.8718},
-      zoom: 4,
-      mapTypeControl: false,
-      disableDefaultUI: true
-    });
+    map.setZoom(4);
   }
 
 
-  for(var i = 0; i < model_data().length; i++) {
+  model_data().forEach(function(model) {
 
       marker = new google.maps.Marker({
-      position: new google.maps.LatLng(model_data()[i].lat, model_data()[i].lng),
+      position: new google.maps.LatLng(model.lat, model.lng),
       map: map,
-      title: model_data()[i].name,
+      title: model.name,
       animation: google.maps.Animation.DROP,
-      id: i,
-      location: model_data()[i].location,
+      id: model.id,
+      location: model.location,
       icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
     });
 
-    model_data()[i].markerObject = marker;
+    model.markerObject = marker;
 
     var l_infowindow = new google.maps.InfoWindow();
     markers.push(marker);
@@ -142,8 +133,8 @@ function initMap() {
       animateMarker(this);
       generateInfoWindow(this, l_infowindow);
     });
-  }
-};
+  });
+}
 
 //Function to animate the marker once the marker is selected.
 function animateMarker(marker) {
@@ -151,7 +142,7 @@ function animateMarker(marker) {
   //Set timeout for Animation
   setTimeout(function() {
     marker.setAnimation(null);
-  }, 2000);
+  }, 2100);
 }
 
 //Function that takes care of the 3rd party api for the project. This function
@@ -184,15 +175,20 @@ function getWiki(marker) {
 
 //Function to generate the infowindow for each marker.
 function generateInfoWindow(marker, infowindow) {
-    infowindow.marker = marker;
-    var content = '<div><h1>' + marker.title + '</h1><hr>' +
-                  '<br><p>' + marker.location + '</p></div>' +
-                  '<a href="' + marker.url + '">' + marker.url +
-                  '</a><p>' + marker.Description + '</p>';
+  infowindow.marker = marker;
+  if(marker.url != undefined) {
+      var content = '<div><h1>' + marker.title + '</h1><hr>' +
+                    '<br><p>' + marker.location + '</p></div>' +
+                    '<a href="' + marker.url + '">' + marker.url +
+                    '</a><p>' + marker.Description + '</p>';
     infowindow.setContent(content);
-    infowindow.open(map,marker);
-    map.setZoom(7);
-    map.setCenter(marker.position);
+  }
+  else {
+    infowindow.setContent('Failed to load wiki Resources');
+  }
+  infowindow.open(map,marker);
+  map.setZoom(7);
+  map.setCenter(marker.position);
 }
 
 //close info windows
@@ -201,7 +197,7 @@ closeInfoWindows = function() {
     for (var i = 0; i < infoWindows.length; i++) {
         infoWindows[i].close();
     }
-}
+};
 
 var navBar = true;
 
@@ -295,6 +291,5 @@ ko.applyBindings(new viewModel());
 
 //Function to display google maps error
 function googleError(){
-  console.log('hi');
   alert("Sorry, We are experiencing trouble loading the Google Maps");
 };
