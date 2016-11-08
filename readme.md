@@ -20,6 +20,7 @@ The various features associated with the webpage are:
 ## About the Webpage ##
 
 This webpage is created using mainly two APIs.
+
 1. Google Maps API
 2. Wikipedia API.
 
