@@ -32,3 +32,10 @@ The DOM elements in this project are mainly changed using the knockout data bind
 
 The jquery-3.1.1 is used so as to fetch the wikipedia details. The details are
 fetched in a JSONP format
+
+## References ##
+
+1. Udacity Forums on Neighbourhood-Map-Project.
+2. Stack OVerflow.
+3. Knockout JS documentation.
+4. Use of third party API: Wikipedia API.(https://en.wikipedia.org/w/api.php, #English Wikipedia API).
