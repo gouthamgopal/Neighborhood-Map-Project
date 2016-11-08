@@ -2,9 +2,9 @@
 
 ## How to Run ##
 
-1.Clone or download the github repository onto your computer.
-2.Open the folder containing the project
-3.Open index.html in your preferred browser( firefox, chrome).
+1. Clone or download the github repository onto your computer.
+2. Open the folder containing the project
+3. Open index.html in your preferred browser( firefox, chrome).
 
 ## How to Use ##
 
@@ -20,6 +20,7 @@ The various features associated with the webpage are:
 ## About the Webpage ##
 
 This webpage is created using mainly two APIs.
+
 1. Google Maps API
 2. Wikipedia API.
 
